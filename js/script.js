@@ -49,7 +49,31 @@ function crearLiTarea(tarea) {
   const botonBorrado = document.createElement('button')
   botonBorrado.textContent = 'Eliminar'
   botonBorrado.addEventListener('click', () => {
-    eliminarTarea(tarea)
+    // Sweet Alert 2 !
+    Swal.fire({
+      title: 'tas seguro??',
+      text: 'mira que no hay vuelta atras!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Borrala!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarTarea(tarea)
+        Swal.fire({
+          title: 'Borrado!',
+          text: 'Tu tarea ha sido eliminada.',
+          icon: 'success'
+        })
+      } else {
+        Swal.fire({
+          title: 'No se ha borrado!',
+          text: 'tu tarea esta a salvo.',
+          icon: 'info'
+        })
+      }
+    })
   })
   botonBorrado.classList.add('delete-btn')
   li.appendChild(botonBorrado)
