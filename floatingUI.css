@@ -1,0 +1,31 @@
+body {
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  background: linear-gradient(135deg, #6e45e2, #88d3ce);
+  margin: 0;
+  padding: 20px;
+}
+.tooltip,
+.popover,
+.dropdown,
+.dialog {
+  display: none;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.tooltip {
+  background: yellow;
+}
+.dialog {
+  width: 300px;
+  height: 200px;
+}
+.dropdown-menu,
+.select-options {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 150px;
+}

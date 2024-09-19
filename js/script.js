@@ -57,20 +57,20 @@ function crearLiTarea(tarea) {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Borrala!'
+      confirmButtonText: 'Si, Borrala!',
     }).then((result) => {
       if (result.isConfirmed) {
         eliminarTarea(tarea)
         Swal.fire({
           title: 'Borrado!',
           text: 'Tu tarea ha sido eliminada.',
-          icon: 'success'
+          icon: 'success',
         })
       } else {
         Swal.fire({
           title: 'No se ha borrado!',
           text: 'tu tarea esta a salvo.',
-          icon: 'info'
+          icon: 'info',
         })
       }
     })
@@ -115,4 +115,7 @@ function guardarTareasEnStorage(tareas) {
   window.localStorage.setItem('tareas', JSON.stringify(tareas))
 }
 
+Sortable.create(taskList, {
+  animation: 150,
+})
 renderizarTareas()

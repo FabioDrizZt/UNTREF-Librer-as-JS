@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Floating UI Example</title>
+    <link rel="stylesheet" href="./floatingUI.css" />
+  </head>
+  <body>
+    <h2>Floating UI Components</h2>
+
+    <!-- Tooltip -->
+    <button id="tooltipBtn">Hover me (Tooltip)</button>
+    <div class="tooltip" id="tooltip">This is a tooltip!</div>
+    <br />
+    <br />
+    <br />
+    <!-- Popover -->
+    <button id="popoverBtn">Click me (Popover)</button>
+    <div class="popover" id="popover">This is a popover!</div>
+    <br />
+    <br />
+    <br />
+
+    <!-- Select Menu -->
+    <div style="position: relative">
+      <button id="selectBtn">Select Menu</button>
+      <div class="select-options" id="selectOptions">
+        <div>Option 1</div>
+        <div>Option 2</div>
+        <div>Option 3</div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <!-- Combobox -->
+    <label for="comboboxInput">Combobox: </label>
+    <input type="text" id="comboboxInput" placeholder="Type to search..." />
+    <div class="dropdown-menu" id="comboboxDropdown">
+      <div>Apple</div>
+      <div>Banana</div>
+      <div>Cherry</div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <!-- Dropdown Menu -->
+    <button id="dropdownBtn">Dropdown Menu</button>
+    <div class="dropdown-menu" id="dropdownMenu">
+      <div>Action 1</div>
+      <div>Action 2</div>
+      <div>Action 3</div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <!-- Dialog -->
+    <button id="openDialogBtn">Open Dialog</button>
+    <div class="dialog" id="dialog">
+      <p>This is a dialog!</p>
+      <button id="closeDialogBtn">Close</button>
+    </div>
+
+    <script src="./floatingUI.js"></script>
+  </body>
+</html>

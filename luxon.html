@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Recordatorios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .reminder-list {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .reminder-item {
+      background-color: #e0f7fa;
+      border-left: 5px solid #00796b;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .time-remaining {
+      font-size: 0.9rem;
+      color: #00796b;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Sistema de Recordatorios</h1>
+    <label for="event-name">Nombre del Evento:</label>
+    <input type="text" id="event-name" placeholder="Escribe el nombre del evento">
+
+    <label for="event-date">Fecha del Evento:</label>
+    <input type="datetime-local" id="event-date">
+
+    <button id="add-reminder">Añadir Recordatorio</button>
+
+    <ul class="reminder-list" id="reminder-list"></ul>
+  </div>
+
+  <script>
+    const DateTime = luxon.DateTime;
+
+    const reminderList = document.getElementById('reminder-list');
+    const addReminderButton = document.getElementById('add-reminder');
+    
+    addReminderButton.addEventListener('click', addReminder);
+
+    function addReminder() {
+      const eventName = document.getElementById('event-name').value;
+      const eventDate = document.getElementById('event-date').value;
+
+      if (!eventName || !eventDate) {
+        alert('Por favor, rellena todos los campos');
+        return;
+      }
+
+      // Convertir la fecha del input a un objeto DateTime de Luxon
+      const eventDateTime = DateTime.fromISO(eventDate);
+
+      // Crear el elemento del recordatorio
+      const reminderItem = document.createElement('li');
+      reminderItem.classList.add('reminder-item');
+      reminderItem.innerHTML = `
+        <strong>${eventName}</strong>
+        <p class="time-remaining">Tiempo restante: ${formatTimeRemaining(eventDateTime)}</p>
+      `;
+      
+      // Añadir el recordatorio a la lista
+      reminderList.appendChild(reminderItem);
+
+      // Limpiar los campos
+      document.getElementById('event-name').value = '';
+      document.getElementById('event-date').value = '';
+
+      // Actualizar el tiempo restante cada segundo
+      const intervalId = setInterval(() => {
+        const timeRemainingElement = reminderItem.querySelector('.time-remaining');
+        const timeRemaining = formatTimeRemaining(eventDateTime);
+
+        if (timeRemaining === '¡Ya ocurrió!') {
+          clearInterval(intervalId);
+        }
+
+        timeRemainingElement.textContent = `Tiempo restante: ${timeRemaining}`;
+      }, 1000);
+    }
+
+    function formatTimeRemaining(eventDateTime) {
+      const now = DateTime.now();
+      const diff = eventDateTime.diff(now, ['days', 'hours', 'minutes', 'seconds']).toObject();
+
+      if (diff.days <= 0 && diff.hours <= 0 && diff.minutes <= 0 && diff.seconds <= 0) {
+        return '¡Ya ocurrió!';
+      }
+
+      const { days, hours, minutes, seconds } = diff;
+      return `${days > 0 ? days + ' días, ' : ''}${hours} horas, ${minutes} minutos, ${Math.floor(seconds)} segundos`;
+    }
+  </script>
+</body>
+</html>
